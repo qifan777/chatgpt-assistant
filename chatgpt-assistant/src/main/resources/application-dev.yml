@@ -1,0 +1,16 @@
+spring:
+  data:
+    redis:
+      database: 4
+    mongodb:
+      username: root
+      password: '123456'
+      database: chat_gpt
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      auto-index-creation: true
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: debug
+
