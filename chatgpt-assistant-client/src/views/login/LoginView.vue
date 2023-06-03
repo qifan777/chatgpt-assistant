@@ -1,44 +1,62 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 const registryForm = reactive({ username: '', password: '' })
+// 登录面板过渡效果
+const showPanel = ref(false)
+onMounted(() =>
+  setTimeout(() => {
+    showPanel.value = true
+  }, 500)
+)
 </script>
 <template>
   <img class="background" src="@/assets/background.jpg" alt="背景图片" />
   <div class="panel-wrapper">
-    <el-card class="panel">
-      <div class="content">
-        <div class="panel-left">
-          <img class="logo" src="@/assets/logo.svg" alt="logo" />
-          <div class="title">搭建属于你自己的ChatGPT助手</div>
-          <div class="description">让ChatGPT提高你的学习效率</div>
-        </div>
-        <div class="panel-right">
-          <div class="title">快速开始</div>
-          <div class="description">创建你的账号</div>
-          <el-form
-            class="form"
-            label-position="top"
-            label-width="100px"
-            :model="registryForm"
-            style="max-width: 460px"
-          >
-            <el-form-item label="用户名">
-              <el-input style="width: 400px" v-model="registryForm.username" size="large" />
-            </el-form-item>
-            <el-form-item label="密码">
-              <el-input style="width: 400px" v-model="registryForm.password" size="large" />
-            </el-form-item>
-          </el-form>
-          <div class="button-wrapper">
-            <el-button style="width: 300px" type="primary" size="large">注册</el-button>
+    <Transition>
+      <el-card class="panel" v-if="showPanel">
+        <div class="content">
+          <div class="panel-left">
+            <img class="logo" src="@/assets/logo.svg" alt="logo" />
+            <div class="title">搭建属于你自己的ChatGPT助手</div>
+            <div class="description">让ChatGPT提高你的学习效率</div>
+          </div>
+          <div class="panel-right">
+            <div class="title">快速开始</div>
+            <div class="description">创建你的账号</div>
+            <el-form
+              class="form"
+              label-position="top"
+              label-width="100px"
+              :model="registryForm"
+              style="max-width: 460px"
+            >
+              <el-form-item label="用户名">
+                <el-input style="width: 400px" v-model="registryForm.username" size="large" />
+              </el-form-item>
+              <el-form-item label="密码">
+                <el-input style="width: 400px" v-model="registryForm.password" size="large" />
+              </el-form-item>
+            </el-form>
+            <div class="button-wrapper">
+              <el-button style="width: 300px" type="primary" size="large">注册</el-button>
+            </div>
           </div>
         </div>
-      </div>
-    </el-card>
+      </el-card>
+    </Transition>
   </div>
 </template>
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 .background {
   position: fixed;
   width: 100vw;

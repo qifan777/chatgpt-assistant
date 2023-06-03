@@ -16,7 +16,7 @@
     <modules>
         <module>bom</module>
         <module>infrastructure</module>
-        <module>chatgpt-assistant</module>
+        <module>chatgpt-assistant-server</module>
     </modules>
 
     <properties>

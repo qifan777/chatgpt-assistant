@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>chatgpt-assistant</artifactId>
+    <artifactId>chatgpt-assistant-server</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
