@@ -1,13 +1,14 @@
 <#-- @ftlvariable name="" type="io.qifan.infrastructure.generator.processor.model.front.Api" -->
-import { ${entityType.typeName}, Page, QueryRequest } from "@/typings";
-import requestWithToken from "@/utils/request";
+import { ${entityType.typeName}, Page, QueryRequest } from "typings";
+import requestWithToken from '../utils/request'
+
 <#assign uncapitalizeTypeName = entityType.getUncapitalizeTypeName()>
 
 export const query${entityType.typeName} = (query: QueryRequest<${entityType.typeName}>) => {
 return requestWithToken<${"Page<"+entityType.typeName+">"}>("/${uncapitalizeTypeName}/query", "POST", query);
 };
 
-export const save${entityType.typeName} = (data: ${entityType.typeName}) => {
+export const save${entityType.typeName} = (data: Partial<${entityType.typeName}>) => {
 if (data.id) {
 return requestWithToken<${'string'}>(`/${uncapitalizeTypeName}/${r'${data.id}'}/update`, "POST", data);
 }

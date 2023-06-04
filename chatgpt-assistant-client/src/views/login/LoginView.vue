@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
+import { User } from '../../../typings'
+import { loginUser } from '@/api/user'
+import router from '@/router'
 
-const registryForm = reactive({ username: '', password: '' })
+const loginForm = reactive<Partial<User>>({ username: '', password: '' })
 // 登录面板过渡效果
 const showPanel = ref(false)
 onMounted(() =>
@@ -9,6 +12,15 @@ onMounted(() =>
     showPanel.value = true
   }, 500)
 )
+const login = () => {
+  loginUser(loginForm).then((res) => {
+    if (res.success) {
+      router.replace({ path: '/' })
+      localStorage.setItem('token', res.result.tokenValue)
+      console.log(res)
+    }
+  })
+}
 </script>
 <template>
   <img class="background" src="@/assets/background.jpg" alt="背景图片" />
@@ -28,18 +40,25 @@ onMounted(() =>
               class="form"
               label-position="top"
               label-width="100px"
-              :model="registryForm"
+              :model="loginForm"
               style="max-width: 460px"
             >
               <el-form-item label="用户名">
-                <el-input style="width: 400px" v-model="registryForm.username" size="large" />
+                <el-input style="width: 400px" v-model="loginForm.username" size="large" />
               </el-form-item>
               <el-form-item label="密码">
-                <el-input style="width: 400px" v-model="registryForm.password" size="large" />
+                <el-input
+                  style="width: 400px"
+                  v-model="loginForm.password"
+                  type="password"
+                  size="large"
+                />
               </el-form-item>
             </el-form>
             <div class="button-wrapper">
-              <el-button style="width: 300px" type="primary" size="large">注册</el-button>
+              <el-button style="width: 300px" type="primary" size="large" @click="login"
+                >登录/注册</el-button
+              >
             </div>
           </div>
         </div>

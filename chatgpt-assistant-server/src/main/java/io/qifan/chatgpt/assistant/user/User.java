@@ -15,6 +15,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Accessors(chain = true)
 @Data
 public class User extends BaseEntity {
+    private String avatar;
+    private String nickname;
+    private String username;
+    private String password;
     @GenField(ignoreRequest = true)
     private ValidStatus validStatus;
 

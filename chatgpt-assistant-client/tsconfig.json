@@ -1,9 +1,6 @@
 {
-  "files": [],
-  "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
-    "composite": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -16,7 +13,7 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": [
-        "./src/*"
+        "src/*"
       ]
     },
     "lib": [
@@ -30,15 +27,10 @@
       "element-plus/global"
     ]
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
+  "include": [
+    "vite.config.*",
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
   ]
 }
