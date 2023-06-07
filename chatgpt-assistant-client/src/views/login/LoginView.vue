@@ -3,7 +3,6 @@ import { onMounted, reactive, ref } from 'vue'
 import { User } from '../../../typings'
 import { loginUser } from '@/api/user'
 import router from '@/router'
-
 const loginForm = reactive<Partial<User>>({ username: '', password: '' })
 // 登录面板过渡效果
 const showPanel = ref(false)

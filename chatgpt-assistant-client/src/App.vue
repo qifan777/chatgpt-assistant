@@ -14,28 +14,20 @@ import { RouterView } from 'vue-router'
 body {
   margin: 0;
 }
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.75s ease-out;
+.slide-leave-active,
+.slide-enter-active {
+  transition: all 0.5s ease-out;
 }
 
-.slide-enter-to {
-  position: absolute;
-  right: 0;
-}
-
-.slide-enter-from {
-  position: absolute;
-  right: -100%;
-}
-
+.slide-enter-to,
 .slide-leave-to {
-  position: absolute;
-  left: -100%;
+  opacity: 0;
+  transform: translateX(-100vw);
 }
 
+.slide-enter-from,
 .slide-leave-from {
-  position: absolute;
-  left: 0;
+  opacity: 1;
+  transform: translateX(0);
 }
 </style>
