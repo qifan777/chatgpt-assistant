@@ -1,5 +1,6 @@
 package io.qifan.chatgpt.assistant.user.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import io.qifan.chatgpt.assistant.user.dto.request.UserCreateRequest;
 import io.qifan.chatgpt.assistant.user.dto.request.UserQueryRequest;
@@ -21,7 +22,7 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
     private final UserService userService;
-
+    @SaCheckLogin
     @GetMapping("{id}")
     public UserCommonResponse findById(@PathVariable String id) {
         return userService.findById(id);
@@ -60,8 +61,9 @@ public class UserController {
     public Boolean deleteUser(@RequestBody List<String> ids) {
         return userService.deleteUser(ids);
     }
+
     @PostMapping("login")
-    public R<SaTokenInfo> login(@RequestBody UserCreateRequest request){
+    public R<SaTokenInfo> login(@RequestBody UserCreateRequest request) {
         return R.ok(userService.login(request));
     }
 }

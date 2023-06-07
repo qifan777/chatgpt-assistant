@@ -35,7 +35,8 @@
             <dependency>
                 <groupId>io.qifan.chatgpt.infrastructure.generator</groupId>
                 <artifactId>generator-core</artifactId>
-                <version>${project.version}</version>            </dependency>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.qifan.chatgpt.infrastructure.generator</groupId>
                 <artifactId>generator-processor</artifactId>
@@ -44,7 +45,13 @@
             <dependency>
                 <groupId>io.qifan.chatgpt.infrastructure</groupId>
                 <artifactId>infrastructure-common</artifactId>
-                <version>${project.version}</version>            </dependency>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.qifan.chatgpt.infrastructure</groupId>
+                <artifactId>infrastructure-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>

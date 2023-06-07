@@ -23,47 +23,49 @@ const login = () => {
 }
 </script>
 <template>
-  <img class="background" src="@/assets/background.jpg" alt="背景图片" />
-  <div class="panel-wrapper">
-    <Transition>
-      <el-card class="panel" v-if="showPanel">
-        <div class="content">
-          <div class="panel-left">
-            <img class="logo" src="@/assets/logo.svg" alt="logo" />
-            <div class="title">搭建属于你自己的ChatGPT助手</div>
-            <div class="description">让ChatGPT提高你的学习效率</div>
-          </div>
-          <div class="panel-right">
-            <div class="title">快速开始</div>
-            <div class="description">创建你的账号</div>
-            <el-form
-              class="form"
-              label-position="top"
-              label-width="100px"
-              :model="loginForm"
-              style="max-width: 460px"
-            >
-              <el-form-item label="用户名">
-                <el-input style="width: 400px" v-model="loginForm.username" size="large" />
-              </el-form-item>
-              <el-form-item label="密码">
-                <el-input
-                  style="width: 400px"
-                  v-model="loginForm.password"
-                  type="password"
-                  size="large"
-                />
-              </el-form-item>
-            </el-form>
-            <div class="button-wrapper">
-              <el-button style="width: 300px" type="primary" size="large" @click="login"
-                >登录/注册</el-button
+  <div>
+    <img class="background" src="@/assets/background.jpg" alt="背景图片" />
+    <div class="panel-wrapper">
+      <Transition>
+        <el-card class="panel" v-if="showPanel">
+          <div class="content">
+            <div class="panel-left">
+              <img class="logo" src="@/assets/logo.svg" alt="logo" />
+              <div class="title">搭建属于你自己的ChatGPT助手</div>
+              <div class="description">让ChatGPT提高你的学习效率</div>
+            </div>
+            <div class="panel-right">
+              <div class="title">快速开始</div>
+              <div class="description">创建你的账号</div>
+              <el-form
+                class="form"
+                label-position="top"
+                label-width="100px"
+                :model="loginForm"
+                style="max-width: 460px"
               >
+                <el-form-item label="用户名">
+                  <el-input style="width: 400px" v-model="loginForm.username" size="large" />
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-input
+                    style="width: 400px"
+                    v-model="loginForm.password"
+                    type="password"
+                    size="large"
+                  />
+                </el-form-item>
+              </el-form>
+              <div class="button-wrapper">
+                <el-button style="width: 300px" type="primary" size="large" @click="login"
+                  >登录/注册</el-button
+                >
+              </div>
             </div>
           </div>
-        </div>
-      </el-card>
-    </Transition>
+        </el-card>
+      </Transition>
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
