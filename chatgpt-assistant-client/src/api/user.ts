@@ -27,3 +27,6 @@ export const deleteUser = (ids: string[]) => {
 export const loginUser = (user: Partial<User>) => {
   return requestWithToken<LoginResponse>('/user/login', 'POST', user)
 }
+export const getUserInfo = () => {
+  return requestWithToken<User>('/user/info', 'GET')
+}

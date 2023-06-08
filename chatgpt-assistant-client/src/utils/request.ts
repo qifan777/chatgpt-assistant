@@ -28,7 +28,7 @@ http.interceptors.response.use(
     return response.data
   }
 )
-const requestWithToken = async <T>(url: string, method: Method, data: any): Promise<Result<T>> => {
+const requestWithToken = async <T>(url: string, method: Method, data?: any): Promise<Result<T>> => {
   if (method === 'get' || method === 'GET') {
     return await http({ url, method, params: data })
   } else {

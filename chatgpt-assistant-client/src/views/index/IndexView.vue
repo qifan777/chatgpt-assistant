@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/stores/user'
+import { toRefs } from 'vue'
+const userStore = useUserStore()
+userStore.getInfo()
+const { userInfo } = toRefs(userStore)
+</script>
 
 <template>
   <div class="index-view">
@@ -10,10 +16,10 @@
             <div>ChatGPT助手</div>
           </div>
           <div class="avatar-wrapper">
-            <div class="nickname">{{ '起凡' }}</div>
+            <div class="nickname">{{ userInfo.nickname || userInfo.username }}</div>
             <el-dropdown>
               <el-avatar
-                src="https://www.jarcheng.top/images/logo.jpg"
+                :src="userInfo.avatar || 'https://www.jarcheng.top/images/logo.jpg'"
                 :size="30"
                 shape="square"
               ></el-avatar>

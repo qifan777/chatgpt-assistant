@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ElMessage, UploadProps } from 'element-plus'
-import { ref } from 'vue'
+import { toRefs } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
+import { useUserStore } from '@/stores/user'
+import { Result } from '../../../../typings'
+import { saveUser } from '@/api/user'
+const { userInfo } = toRefs(useUserStore())
 
-const imageUrl = ref('')
-
-const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+const handleAvatarSuccess: UploadProps['onSuccess'] = (response: Result<{ url: string }>) => {
+  console.log(response)
+  userInfo.value.avatar = response.result.url
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
@@ -19,6 +22,13 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   }
   return true
 }
+const submit = () => {
+  saveUser(userInfo.value).then((res) => {
+    if (res.success) {
+      ElMessage.success('更新成功')
+    }
+  })
+}
 </script>
 
 <template>
@@ -26,21 +36,22 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     <div class="title">我的信息</div>
     <el-form label-position="top" class="form">
       <el-form-item label="昵称">
-        <el-input></el-input>
+        <el-input v-model="userInfo.nickname"></el-input>
       </el-form-item>
       <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
-          action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+          action="/api/upload/upload"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <el-avatar v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar" :size="90" />
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
       </el-form-item>
     </el-form>
+    <el-button type="success" @click="submit">提交信息</el-button>
   </div>
 </template>
 

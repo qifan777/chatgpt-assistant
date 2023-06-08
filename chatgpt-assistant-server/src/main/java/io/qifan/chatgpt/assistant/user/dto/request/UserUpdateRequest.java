@@ -7,6 +7,4 @@ import lombok.Data;
 public class UserUpdateRequest extends BaseRequest {
     private String avatar;
     private String nickname;
-    private String username;
-    private String password;
 }

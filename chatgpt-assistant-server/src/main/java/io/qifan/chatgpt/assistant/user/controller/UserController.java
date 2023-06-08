@@ -8,7 +8,6 @@ import io.qifan.chatgpt.assistant.user.dto.request.UserUpdateRequest;
 import io.qifan.chatgpt.assistant.user.dto.response.UserCommonResponse;
 import io.qifan.chatgpt.assistant.user.service.UserService;
 import io.qifan.infrastructure.common.model.QueryRequest;
-import io.qifan.infrastructure.common.model.R;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,7 +62,13 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public R<SaTokenInfo> login(@RequestBody UserCreateRequest request) {
-        return R.ok(userService.login(request));
+    public SaTokenInfo login(@RequestBody UserCreateRequest request) {
+        return userService.login(request);
+    }
+
+    @GetMapping("info")
+    @SaCheckLogin
+    public UserCommonResponse userInfo() {
+        return userService.userInfo();
     }
 }
