@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import router from '@/router'
 import { useUserStore } from '@/stores/user'
 import { toRefs } from 'vue'
 const userStore = useUserStore()
 userStore.getInfo()
 const { userInfo } = toRefs(userStore)
+const switchRoute = (path: string) => {
+  console.log(path)
+  router.push({ path })
+}
 </script>
 
 <template>
@@ -16,7 +21,7 @@ const { userInfo } = toRefs(userStore)
             <div>ChatGPT助手</div>
           </div>
           <div class="avatar-wrapper">
-            <div class="nickname">{{ userInfo.nickname || userInfo.username }}</div>
+            <div class="nickname">{{ userInfo.nickname || userInfo.nickname }}</div>
             <el-dropdown>
               <el-avatar
                 :src="userInfo.avatar || 'https://www.jarcheng.top/images/logo.jpg'"
@@ -25,7 +30,9 @@ const { userInfo } = toRefs(userStore)
               ></el-avatar>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item> 我的信息 </el-dropdown-item>
+                  <el-dropdown-item @click="switchRoute('/user/profile')">
+                    我的信息
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>

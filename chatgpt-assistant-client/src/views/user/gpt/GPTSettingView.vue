@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="gpt-view">这里是GPT配置</div>
+  <div class="gpt-view">
+    <div class="title">GPT页面</div>
+  </div>
 </template>
 
 <style scoped lang="scss"></style>

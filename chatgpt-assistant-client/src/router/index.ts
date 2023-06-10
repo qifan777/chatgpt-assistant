@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/home/HomeView.vue'
 import IndexView from '@/views/index/IndexView.vue'
-import UserSetting from '@/views/user/UserSetting.vue'
-import UserProfile from '@/views/user/profile/UserProfile.vue'
-import GPTSetting from '@/views/user/gpt/GPTSetting.vue'
+import UserSettingView from '@/views/user/UserSettingView.vue'
+import ProfileView from '@/views/user/profile/ProfileView.vue'
+import GPTSettingView from '@/views/user/gpt/GPTSettingView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,16 +16,11 @@ const router = createRouter({
         { path: 'home', component: HomeView },
         {
           path: 'user',
-          component: UserSetting,
+          component: UserSettingView,
+          redirect: '/user/profile',
           children: [
-            {
-              path: 'profile',
-              component: UserProfile
-            },
-            {
-              path: 'gpt',
-              component: GPTSetting
-            }
+            { path: 'profile', component: ProfileView },
+            { path: 'gpt', component: GPTSettingView }
           ]
         }
       ]

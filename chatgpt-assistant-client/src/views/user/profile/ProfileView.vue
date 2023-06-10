@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ElMessage, UploadProps } from 'element-plus'
 import { toRefs } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
-import { useUserStore } from '@/stores/user'
+
+import type { UploadProps } from 'element-plus'
 import { Result } from '../../../../typings'
 import { saveUser } from '@/api/user'
-const { userInfo } = toRefs(useUserStore())
+import { useUserStore } from '@/stores/user'
 
+const { userInfo } = toRefs(useUserStore())
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response: Result<{ url: string }>) => {
-  console.log(response)
   userInfo.value.avatar = response.result.url
 }
 
@@ -25,7 +26,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 const submit = () => {
   saveUser(userInfo.value).then((res) => {
     if (res.success) {
-      ElMessage.success('更新成功')
+      ElMessage.success('提交成功')
     }
   })
 }
@@ -34,7 +35,7 @@ const submit = () => {
 <template>
   <div class="profile-view">
     <div class="title">我的信息</div>
-    <el-form label-position="top" class="form">
+    <el-form class="form" label-position="top">
       <el-form-item label="昵称">
         <el-input v-model="userInfo.nickname"></el-input>
       </el-form-item>
@@ -46,42 +47,48 @@ const submit = () => {
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <el-avatar v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar" :size="90" />
+          <img v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar" />
           <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
         </el-upload>
       </el-form-item>
     </el-form>
-    <el-button type="success" @click="submit">提交信息</el-button>
+    <el-button type="success" @click="submit"> 提交修改</el-button>
   </div>
 </template>
 
 <style scoped lang="scss">
 .profile-view {
   .title {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 20px;
   }
-  .form {
-    .avatar-uploader .el-upload {
-      border: 1px dashed var(--el-border-color);
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: var(--el-transition-duration-fast);
-    }
-
-    .avatar-uploader .el-upload:hover {
-      border-color: var(--el-color-primary);
-    }
-
-    .el-icon.avatar-uploader-icon {
-      font-size: 28px;
-      color: #8c939d;
-      width: 178px;
-      height: 178px;
-      text-align: center;
-    }
+  .avatar-uploader .avatar {
+    width: 120px;
+    height: 120px;
+    display: block;
   }
+}
+</style>
+
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed var(--el-border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--el-transition-duration-fast);
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: var(--el-color-primary);
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 120px;
+  height: 120px;
+  text-align: center;
 }
 </style>

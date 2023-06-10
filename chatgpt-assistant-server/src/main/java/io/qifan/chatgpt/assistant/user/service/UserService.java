@@ -115,9 +115,10 @@ public class UserService {
     }
 
 
-    public UserCommonResponse userInfo() {
-        return userMapper.entity2Response(userRepository.findById(StpUtil.getLoginIdAsString())
-                                                        .orElseThrow(() -> new BusinessException(ResultCode.NotFindError,
-                                                                                                 "用户不存在")));
+    public UserCommonResponse getUserInfo() {
+        return userRepository.findById(StpUtil.getLoginIdAsString())
+                             .map(userMapper::entity2Response)
+                             .orElseThrow(() -> new BusinessException(ResultCode.NotFindError,
+                                                                      "用户不存在"));
     }
 }

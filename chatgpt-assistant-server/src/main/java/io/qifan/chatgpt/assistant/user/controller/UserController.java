@@ -69,6 +69,6 @@ public class UserController {
     @GetMapping("info")
     @SaCheckLogin
     public UserCommonResponse userInfo() {
-        return userService.userInfo();
+        return userService.getUserInfo();
     }
 }

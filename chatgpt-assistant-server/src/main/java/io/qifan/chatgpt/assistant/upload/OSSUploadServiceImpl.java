@@ -20,7 +20,7 @@ public class OSSUploadServiceImpl implements UploadService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String objectName = sdf.format(new Date()) + filename;
 
-        return ossUtils.basicUpload("plan-manager/" + objectName, multipartFile.getInputStream());
+        return ossUtils.basicUpload("my-community/" + objectName, multipartFile.getInputStream());
     }
 
     @Override
