@@ -1,3 +1,20 @@
+export interface ChatConfig extends BaseEntity {
+  model: number
+  temperature: number
+  maxTokens: number
+  presencePenalty: number
+  apiKey: string
+  createdBy: User
+  validStatus: 'VALID' | 'INVALID'
+}
+export interface ChatSession extends BaseEntity {
+  config: ChatConfig
+  topic: string
+  statistic: Statistic
+  messages: Message[]
+  createdBy: User
+  validStatus: 'VALID' | 'INVALID'
+}
 export interface User extends BaseEntity {
   avatar: string
   nickname: string

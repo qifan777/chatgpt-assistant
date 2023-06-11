@@ -5,9 +5,8 @@ import { toRefs } from 'vue'
 const userStore = useUserStore()
 userStore.getInfo()
 const { userInfo } = toRefs(userStore)
-const switchRoute = (path: string) => {
-  console.log(path)
-  router.push({ path })
+const switchRoute = (routeName: string) => {
+  router.replace({ name: routeName, params: { routeName } })
 }
 </script>
 
@@ -30,9 +29,8 @@ const switchRoute = (path: string) => {
               ></el-avatar>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item @click="switchRoute('/user/profile')">
-                    我的信息
-                  </el-dropdown-item>
+                  <el-dropdown-item @click="switchRoute('profile')"> 我的信息 </el-dropdown-item>
+                  <el-dropdown-item @click="switchRoute('gpt')">GPT设置</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>

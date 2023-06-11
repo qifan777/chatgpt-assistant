@@ -1,7 +1,4 @@
-<script lang="ts" setup>
-import { onMounted } from 'vue'
-import router from '@/router'
-</script>
+<script lang="ts" setup></script>
 <template>
-  <div>hello</div>
+  <div></div>
 </template>

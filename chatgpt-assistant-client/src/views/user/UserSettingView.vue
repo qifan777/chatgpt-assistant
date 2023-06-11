@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import router from '@/router'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 interface Menu {
-  id: string
   name: string
-  path: string
+  routeName: string
 }
 
 const menuList = ref<Menu[]>([
-  { id: '0', name: '我的信息', path: '/user/profile' },
-  { id: '1', name: 'CPT设置', path: '/user/gpt' }
+  { name: '我的信息', routeName: 'profile' },
+  { name: 'CPT设置', routeName: 'gpt' }
 ])
-const activeMenu = ref('0')
+const props = defineProps({ routeName: { type: String, default: 'profile' } })
+watch(
+  () => props.routeName,
+  () => (activeMenu.value = props.routeName)
+)
+const activeMenu = ref(props.routeName)
 const handleMenuChange = (menu: Menu) => {
-  activeMenu.value = menu.id
-  router.push({ path: menu.path })
+  activeMenu.value = menu.routeName
+  router.push({ name: menu.routeName })
 }
 </script>
 
@@ -27,9 +32,9 @@ const handleMenuChange = (menu: Menu) => {
         <div class="setting-panel">
           <div class="side-menu">
             <div
-              :class="['menu-item', menu.id === activeMenu ? 'active' : '']"
+              :class="['menu-item', menu.routeName === activeMenu ? 'active' : '']"
               v-for="menu in menuList"
-              :key="menu.id"
+              :key="menu.routeName"
               @click="handleMenuChange(menu)"
             >
               {{ menu.name }}
@@ -72,6 +77,9 @@ const handleMenuChange = (menu: Menu) => {
             line-height: 40px;
             border-radius: 20px;
             width: 100px;
+            &:hover {
+              cursor: pointer;
+            }
             &.active {
               color: rgb(75, 133, 245);
               background: rgb(233, 240, 255);
