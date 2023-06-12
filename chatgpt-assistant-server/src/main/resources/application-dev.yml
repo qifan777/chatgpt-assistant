@@ -8,3 +8,7 @@ spring:
 logging:
   level:
     org.springframework.data.mongodb.core.MongoTemplate: debug
+gpt:
+  proxy:
+    host: localhost
+    port: 7890

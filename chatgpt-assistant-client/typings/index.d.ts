@@ -7,14 +7,24 @@ export interface ChatConfig extends BaseEntity {
   createdBy: User
   validStatus: 'VALID' | 'INVALID'
 }
+export interface ChatMessage extends BaseEntity {
+  content: string
+  role: string
+  session: ChatSession
+  validStatus: 'VALID' | 'INVALID'
+}
 export interface ChatSession extends BaseEntity {
-  config: ChatConfig
   topic: string
   statistic: Statistic
-  messages: Message[]
   createdBy: User
   validStatus: 'VALID' | 'INVALID'
 }
+export interface Statistic {
+  chatCount: number
+  tokenCount: number
+  wordCount: number
+}
+
 export interface User extends BaseEntity {
   avatar: string
   nickname: string

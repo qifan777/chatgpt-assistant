@@ -1,10 +1,10 @@
-package io.qifan.chatgpt.assistant.gpt.controller;
+package io.qifan.chatgpt.assistant.gpt.config.controller;
 
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigCreateRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigQueryRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigUpdateRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.response.ChatConfigCommonResponse;
-import io.qifan.chatgpt.assistant.gpt.service.ChatConfigService;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigCreateRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigQueryRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigUpdateRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.response.ChatConfigCommonResponse;
+import io.qifan.chatgpt.assistant.gpt.config.service.ChatConfigService;
 import io.qifan.infrastructure.common.model.QueryRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

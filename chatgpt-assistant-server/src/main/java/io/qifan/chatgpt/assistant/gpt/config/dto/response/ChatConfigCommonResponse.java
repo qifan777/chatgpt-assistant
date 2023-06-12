@@ -1,6 +1,6 @@
-package io.qifan.chatgpt.assistant.gpt.dto.response;
+package io.qifan.chatgpt.assistant.gpt.config.dto.response;
 
-import io.qifan.chatgpt.assistant.gpt.ChatConfig.GPTModel;
+import io.qifan.chatgpt.assistant.gpt.config.ChatConfig.GPTModel;
 import io.qifan.chatgpt.assistant.user.dto.response.UserCommonResponse;
 import io.qifan.infrastructure.common.model.BaseResponse;
 import io.qifan.infrastructure.common.mongo.ValidStatus;

@@ -1,4 +1,4 @@
-package io.qifan.chatgpt.assistant.gpt;
+package io.qifan.chatgpt.assistant.gpt.config;
 
 import io.qifan.chatgpt.assistant.user.User;
 import io.qifan.infrastructure.common.constants.BaseEnum;

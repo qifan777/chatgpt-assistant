@@ -1,13 +1,13 @@
-package io.qifan.chatgpt.assistant.gpt.service;
+package io.qifan.chatgpt.assistant.gpt.config.service;
 
 import cn.dev33.satoken.stp.StpUtil;
-import io.qifan.chatgpt.assistant.gpt.ChatConfig;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigCreateRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigQueryRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigUpdateRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.response.ChatConfigCommonResponse;
-import io.qifan.chatgpt.assistant.gpt.mapper.ChatConfigMapper;
-import io.qifan.chatgpt.assistant.gpt.repository.ChatConfigRepository;
+import io.qifan.chatgpt.assistant.gpt.config.ChatConfig;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigCreateRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigQueryRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigUpdateRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.response.ChatConfigCommonResponse;
+import io.qifan.chatgpt.assistant.gpt.config.mapper.ChatConfigMapper;
+import io.qifan.chatgpt.assistant.gpt.config.repository.ChatConfigRepository;
 import io.qifan.infrastructure.common.constants.ResultCode;
 import io.qifan.infrastructure.common.exception.BusinessException;
 import io.qifan.infrastructure.common.model.QueryRequest;

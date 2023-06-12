@@ -24,6 +24,3 @@ export const validChatConfig = (id: string) => {
 export const deleteChatConfig = (ids: string[]) => {
   return requestWithToken<boolean>(`/chatConfig/delete`, 'POST', ids)
 }
-export const getUserChatConfig = () => {
-  return requestWithToken<ChatConfig>('/chatConfig/user', 'GET')
-}

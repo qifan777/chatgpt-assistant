@@ -1,10 +1,10 @@
-package io.qifan.chatgpt.assistant.gpt.mapper;
+package io.qifan.chatgpt.assistant.gpt.config.mapper;
 
-import io.qifan.chatgpt.assistant.gpt.ChatConfig;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigCreateRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigQueryRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.request.ChatConfigUpdateRequest;
-import io.qifan.chatgpt.assistant.gpt.dto.response.ChatConfigCommonResponse;
+import io.qifan.chatgpt.assistant.gpt.config.ChatConfig;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigCreateRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigQueryRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.request.ChatConfigUpdateRequest;
+import io.qifan.chatgpt.assistant.gpt.config.dto.response.ChatConfigCommonResponse;
 import io.qifan.chatgpt.assistant.infrastructure.mapper.CustomMapper;
 import org.mapstruct.*;
 

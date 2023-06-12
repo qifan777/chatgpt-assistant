@@ -50,8 +50,15 @@ public class ChatSessionService {
 
     public String createChatSession(ChatSessionCreateRequest request) {
         Optional<ChatSession> chatSession = EntityOperations.doCreate(chatSessionRepository)
-                                                            .create(() -> chatSessionMapper.createRequest2Entity(
-                                                                    request))
+                                                            .create(() -> {
+                                                                ChatSession request2Entity = chatSessionMapper.createRequest2Entity(
+                                                                        request);
+                                                                request2Entity.setStatistic(new ChatSession.Statistic(0,
+                                                                                                                      0,
+                                                                                                                      0));
+                                                                request2Entity.setTopic("新的的聊天");
+                                                                return request2Entity;
+                                                            })
                                                             .update(ChatSession::valid)
                                                             .successHook(e -> {
                                                                 log.info("创建ChatSession：{}", e);
