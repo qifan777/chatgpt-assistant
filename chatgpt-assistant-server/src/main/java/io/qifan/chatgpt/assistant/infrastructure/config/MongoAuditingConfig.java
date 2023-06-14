@@ -1,9 +1,7 @@
 package io.qifan.chatgpt.assistant.infrastructure.config;
 
 import cn.dev33.satoken.stp.StpUtil;
-
 import io.qifan.chatgpt.assistant.user.User;
-import io.qifan.chatgpt.assistant.user.dto.response.UserCommonResponse;
 import io.qifan.chatgpt.assistant.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

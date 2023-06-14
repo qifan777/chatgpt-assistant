@@ -1,5 +1,6 @@
 package io.qifan.chatgpt.assistant.gpt.session.service;
 
+import cn.dev33.satoken.stp.StpUtil;
 import io.qifan.chatgpt.assistant.gpt.session.ChatSession;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionCreateRequest;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionQueryRequest;
@@ -7,6 +8,7 @@ import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionUpdateReque
 import io.qifan.chatgpt.assistant.gpt.session.dto.response.ChatSessionCommonResponse;
 import io.qifan.chatgpt.assistant.gpt.session.mapper.ChatSessionMapper;
 import io.qifan.chatgpt.assistant.gpt.session.repository.ChatSessionRepository;
+import io.qifan.chatgpt.assistant.user.User;
 import io.qifan.infrastructure.common.constants.ResultCode;
 import io.qifan.infrastructure.common.exception.BusinessException;
 import io.qifan.infrastructure.common.model.QueryRequest;
@@ -86,7 +88,11 @@ public class ChatSessionService {
 
     public Page<ChatSessionCommonResponse> queryChatSession(QueryRequest<ChatSessionQueryRequest> request) {
         ExampleMatcher matcher = ExampleMatcher.matchingAll();
-        Example<ChatSession> example = Example.of(chatSessionMapper.queryRequest2Entity(request.getQuery()), matcher);
+        ChatSession chatSession = chatSessionMapper.queryRequest2Entity(request.getQuery());
+        User user = new User();
+        user.setId(StpUtil.getLoginIdAsString());
+        chatSession.setCreatedBy(user);
+        Example<ChatSession> example = Example.of(chatSession, matcher);
         Page<ChatSession> page = chatSessionRepository.findAll(example, request.toPageable());
         return page.map(chatSessionMapper::entity2Response);
     }

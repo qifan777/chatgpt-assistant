@@ -16,6 +16,7 @@ export interface ChatMessage extends BaseEntity {
 export interface ChatSession extends BaseEntity {
   topic: string
   statistic: Statistic
+  messages: ChatMessage[]
   createdBy: User
   validStatus: 'VALID' | 'INVALID'
 }
@@ -49,7 +50,7 @@ export interface MyFile {
 export interface QueryRequest<T> {
   pageNum: number
   pageSize: number
-  keyword: string
+  keyword?: string
   query?: Partial<T>
 }
 

@@ -2,6 +2,7 @@ import axios, { Method } from 'axios'
 import { ElMessage } from 'element-plus'
 import router from '../router'
 import { Result } from '../../typings'
+
 const baseUrl = '/api'
 const http = axios.create({
   baseURL: baseUrl,

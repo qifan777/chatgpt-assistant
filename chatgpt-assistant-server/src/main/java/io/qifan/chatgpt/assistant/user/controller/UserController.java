@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
     private final UserService userService;
+
     @SaCheckLogin
     @GetMapping("{id}")
     public UserCommonResponse findById(@PathVariable String id) {

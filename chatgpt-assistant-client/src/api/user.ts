@@ -1,4 +1,4 @@
-import { User, Page, QueryRequest, LoginResponse } from 'typings'
+import { LoginResponse, Page, QueryRequest, User } from 'typings'
 import requestWithToken from '../utils/request'
 
 export const queryUser = (query: QueryRequest<User>) => {

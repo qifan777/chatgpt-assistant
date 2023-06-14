@@ -1,5 +1,7 @@
 package io.qifan.chatgpt.assistant.gpt.session.mapper;
 
+import io.qifan.chatgpt.assistant.gpt.message.ChatMessage;
+import io.qifan.chatgpt.assistant.gpt.message.dto.response.ChatMessageCommonResponse;
 import io.qifan.chatgpt.assistant.gpt.session.ChatSession;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionCreateRequest;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionQueryRequest;
@@ -22,5 +24,9 @@ public interface ChatSessionMapper {
 
     ChatSession updateEntityFromUpdateRequest(ChatSessionUpdateRequest request, @MappingTarget ChatSession entity);
 
+    @Mapping(target = "messages", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
     ChatSessionCommonResponse entity2Response(ChatSession entity);
+
+    @Mapping(target = "session", ignore = true)
+    ChatMessageCommonResponse entity2Response(ChatMessage message);
 }

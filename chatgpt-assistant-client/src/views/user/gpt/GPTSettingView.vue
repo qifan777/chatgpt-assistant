@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { ChatConfig } from '../../../../typings'
 import { getUserChatConfig, saveChatConfig } from '@/api/chat-config'
@@ -46,23 +46,23 @@ const submit = () => {
       </el-form-item>
       <el-form-item label="随机性">
         <el-input-number
+          v-model="chatConfig.temperature"
+          :max="1"
           :min="0"
           :precision="1"
           :step="0.1"
-          :max="1"
-          v-model="chatConfig.temperature"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="单次回复token限制">
-        <el-input-number :min="0" :max="4000" v-model="chatConfig.maxTokens"></el-input-number>
+        <el-input-number v-model="chatConfig.maxTokens" :max="4000" :min="0"></el-input-number>
       </el-form-item>
-      <el-form-item label="话题新鲜度"
-        ><el-input-number
+      <el-form-item label="话题新鲜度">
+        <el-input-number
+          v-model="chatConfig.presencePenalty"
+          :max="2"
           :min="-2"
           :precision="1"
           :step="0.1"
-          :max="2"
-          v-model="chatConfig.presencePenalty"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="API Key">
@@ -73,7 +73,7 @@ const submit = () => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .gpt-view {
   .title {
     font-size: 18px;

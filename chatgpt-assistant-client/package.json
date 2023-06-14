@@ -15,6 +15,7 @@
     "@element-plus/icons-vue": "^2.1.0",
     "@stomp/stompjs": "^7.0.0",
     "axios": "^1.4.0",
+    "dayjs": "^1.11.8",
     "element-plus": "^2.3.6",
     "pinia": "^2.0.36",
     "vue": "^3.3.2",

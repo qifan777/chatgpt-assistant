@@ -1,7 +1,6 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref, watch } from 'vue'
 import router from '@/router'
-import { onBeforeRouteUpdate } from 'vue-router'
 
 interface Menu {
   name: string
@@ -32,9 +31,9 @@ const handleMenuChange = (menu: Menu) => {
         <div class="setting-panel">
           <div class="side-menu">
             <div
-              :class="['menu-item', menu.routeName === activeMenu ? 'active' : '']"
               v-for="menu in menuList"
               :key="menu.routeName"
+              :class="['menu-item', menu.routeName === activeMenu ? 'active' : '']"
               @click="handleMenuChange(menu)"
             >
               {{ menu.name }}
@@ -49,7 +48,7 @@ const handleMenuChange = (menu: Menu) => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .setting-view-wrapper {
   display: flex;
   justify-content: center;
@@ -63,13 +62,17 @@ const handleMenuChange = (menu: Menu) => {
 
     .setting-panel-wrapper {
       width: 40vw;
+
       .setting-panel {
         display: flex;
+
         .side-menu {
           width: 150px;
+
           .menu-item:nth-child(1) {
             margin-top: 0;
           }
+
           .menu-item {
             text-align: center;
             margin-top: 20px;
@@ -77,9 +80,11 @@ const handleMenuChange = (menu: Menu) => {
             line-height: 40px;
             border-radius: 20px;
             width: 100px;
+
             &:hover {
               cursor: pointer;
             }
+
             &.active {
               color: rgb(75, 133, 245);
               background: rgb(233, 240, 255);

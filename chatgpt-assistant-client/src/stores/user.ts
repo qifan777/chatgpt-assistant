@@ -5,6 +5,7 @@ import { ref } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref<Partial<User>>({ username: '', nickname: '', avatar: '' })
+
   function getInfo() {
     getUserInfo().then((res) => {
       userInfo.value = res.result

@@ -3,6 +3,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { User } from '../../../typings'
 import { loginUser } from '@/api/user'
 import router from '@/router'
+
 const loginForm = reactive<Partial<User>>({ username: '', password: '' })
 // 登录面板过渡效果
 const showPanel = ref(false)
@@ -23,13 +24,13 @@ const login = () => {
 </script>
 <template>
   <div>
-    <img class="background" src="@/assets/background.jpg" alt="背景图片" />
+    <img alt="背景图片" class="background" src="@/assets/background.jpg" />
     <div class="panel-wrapper">
       <Transition>
-        <el-card class="panel" v-if="showPanel">
+        <el-card v-if="showPanel" class="panel">
           <div class="content">
             <div class="panel-left">
-              <img class="logo" src="@/assets/logo.svg" alt="logo" />
+              <img alt="logo" class="logo" src="@/assets/logo.svg" />
               <div class="title">搭建属于你自己的ChatGPT助手</div>
               <div class="description">让ChatGPT提高你的学习效率</div>
             </div>
@@ -37,28 +38,28 @@ const login = () => {
               <div class="title">快速开始</div>
               <div class="description">创建你的账号</div>
               <el-form
+                :model="loginForm"
                 class="form"
                 label-position="top"
                 label-width="100px"
-                :model="loginForm"
                 style="max-width: 460px"
               >
                 <el-form-item label="用户名">
-                  <el-input style="width: 400px" v-model="loginForm.username" size="large" />
+                  <el-input v-model="loginForm.username" size="large" style="width: 400px" />
                 </el-form-item>
                 <el-form-item label="密码">
                   <el-input
-                    style="width: 400px"
                     v-model="loginForm.password"
-                    type="password"
                     size="large"
+                    style="width: 400px"
+                    type="password"
                   />
                 </el-form-item>
               </el-form>
               <div class="button-wrapper">
-                <el-button style="width: 300px" type="primary" size="large" @click="login"
-                  >登录/注册</el-button
-                >
+                <el-button size="large" style="width: 300px" type="primary" @click="login"
+                  >登录/注册
+                </el-button>
               </div>
             </div>
           </div>
@@ -77,19 +78,23 @@ const login = () => {
 .v-leave-to {
   opacity: 0;
 }
+
 .background {
   position: fixed;
   width: 100vw;
   height: auto;
   z-index: -10;
 }
+
 .panel-wrapper {
   display: flex;
   height: 100vh;
   align-items: center;
   justify-content: center;
+
   .panel {
     width: 40vw;
+
     .content {
       display: flex;
 
@@ -98,11 +103,13 @@ const login = () => {
         margin-top: 60px;
         font-weight: bold;
       }
+
       .description {
         margin-top: 20px;
         font-size: 18px;
         color: rgba(black, 0.5);
       }
+
       .panel-left {
         box-sizing: border-box;
         padding: 30px;
@@ -110,18 +117,22 @@ const login = () => {
         height: 700px;
         width: 50%;
         border-radius: 5px;
+
         .logo {
           width: 30px;
           height: auto;
           margin-top: 20px;
         }
       }
+
       .panel-right {
         padding: 30px;
         width: 50%;
+
         .form {
           margin-top: 30px;
         }
+
         .button-wrapper {
           margin-top: 40px;
           display: flex;

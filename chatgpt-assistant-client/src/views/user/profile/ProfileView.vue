@@ -1,9 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { toRefs } from 'vue'
+import type { UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
-
-import type { UploadProps } from 'element-plus'
 import { Result } from '../../../../typings'
 import { saveUser } from '@/api/user'
 import { useUserStore } from '@/stores/user'
@@ -41,14 +40,16 @@ const submit = () => {
       </el-form-item>
       <el-form-item label="头像">
         <el-upload
-          class="avatar-uploader"
-          action="/api/upload/upload"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
+          :on-success="handleAvatarSuccess"
+          :show-file-list="false"
+          action="/api/upload/upload"
+          class="avatar-uploader"
         >
           <img v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar" />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          <el-icon v-else class="avatar-uploader-icon">
+            <Plus />
+          </el-icon>
         </el-upload>
       </el-form-item>
     </el-form>
@@ -56,13 +57,15 @@ const submit = () => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .profile-view {
   .title {
     font-size: 18px;
     margin-bottom: 20px;
   }
+
   .avatar-uploader .avatar {
+    object-fit: cover;
     width: 120px;
     height: 120px;
     display: block;

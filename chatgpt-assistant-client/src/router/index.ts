@@ -13,7 +13,7 @@ const router = createRouter({
       component: IndexView,
       redirect: 'home',
       children: [
-        { path: 'home', component: HomeView },
+        { path: 'home', name: 'home', component: HomeView },
         {
           path: 'user/:routeName',
           component: UserSettingView,
