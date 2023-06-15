@@ -15,12 +15,13 @@ const router = createRouter({
       children: [
         { path: 'home', component: HomeView },
         {
-          path: 'user',
+          path: 'user/:routeName',
           component: UserSettingView,
+          props: true,
           redirect: '/user/profile',
           children: [
-            { path: 'profile', component: ProfileView },
-            { path: 'gpt', component: GPTSettingView }
+            { path: '', name: 'profile', component: ProfileView },
+            { path: '', name: 'gpt', component: GPTSettingView }
           ]
         }
       ]
