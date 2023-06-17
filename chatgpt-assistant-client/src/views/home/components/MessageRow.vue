@@ -2,6 +2,7 @@
 import { PropType } from 'vue'
 import { ChatMessage } from '../../../../typings'
 import logo from '@/assets/logo.jpg'
+import { MdPreview } from 'md-editor-v3'
 
 defineProps({
   position: { type: String as PropType<'left' | 'right'>, default: 'left' },
@@ -18,7 +19,15 @@ defineProps({
         <el-avatar v-else :src="logo" class="avatar" shape="square" />
       </div>
       <div class="message">
-        {{ message.content || '...' }}
+        <MdPreview
+          :id="'preview-only'"
+          :preview-theme="'smart-blue'"
+          :model-value="message.content"
+          :style="{
+            backgroundColor: message.role === 'user' ? 'rgb(231, 248, 255)' : '#f4f4f5'
+          }"
+        ></MdPreview>
+        <!--        {{ message.content || '...' }}-->
       </div>
     </div>
   </div>
@@ -54,13 +63,16 @@ defineProps({
     .message {
       font-size: 15px;
       display: inline-block;
-      background-color: rgba(black, 0.05);
-      padding: 15px 10px;
+      background-color: #f4f4f5;
+      padding: 1.5px;
       max-width: 500px;
       border-radius: 7px;
       border: 1px solid rgba(black, 0.1);
       box-shadow: 20px 20px 20px 1px rgba(0, 0, 0, 0.01);
     }
   }
+}
+:deep(.md-editor-preview-wrapper) {
+  padding: 0 10px;
 }
 </style>
