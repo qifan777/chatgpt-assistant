@@ -55,8 +55,13 @@ public class ChatConfigService {
 
     public String createChatConfig(ChatConfigCreateRequest request) {
         Optional<ChatConfig> chatConfig = EntityOperations.doCreate(chatConfigRepository)
-                                                          .create(() -> chatConfigMapper.createRequest2Entity(
-                                                                  request))
+                .create(() -> {
+                    Optional.ofNullable(mongoTemplate.findOne(Query.query(Criteria.where("createdBy.id").is(StpUtil.getLoginIdAsString())), ChatConfig.class)).ifPresent(config -> {
+                        throw new BusinessException(ResultCode.SaveError, "已存在配置，请刷新页面");
+                    });
+                    return chatConfigMapper.createRequest2Entity(
+                            request);
+                })
                                                           .update(ChatConfig::valid)
                                                           .successHook(e -> {
                                                               log.info("创建ChatConfig：{}", e);

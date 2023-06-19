@@ -45,6 +45,10 @@ git clone https://github.com/qifan777/chatgpt-assistant.git
       -p 27017:27017 \
       mongo:6.0.5-jammy
     ```
+- redis
+    ```shell
+    docker run --name redis -p 6379:6379 -d redis 
+    ```
 - node18
 ### 运行
 #### 前端
