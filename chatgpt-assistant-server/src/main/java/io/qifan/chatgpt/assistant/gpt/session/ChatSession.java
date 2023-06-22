@@ -52,5 +52,15 @@ public class ChatSession extends BaseEntity {
     public static class Statistic {
         private Integer charCount;
         private Integer tokenCount;
+
+        public Statistic plusChar(Integer charCount) {
+            this.charCount += charCount;
+            return this;
+        }
+
+        public Statistic plusToken(Integer tokenCount) {
+            this.tokenCount += tokenCount;
+            return this;
+        }
     }
 }

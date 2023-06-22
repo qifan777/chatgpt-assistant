@@ -1,5 +1,8 @@
 package io.qifan.chatgpt.assistant.gpt.message.service;
 
+import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.service.OpenAiService;
+import io.qifan.chatgpt.assistant.gpt.config.ChatConfig;
 import io.qifan.chatgpt.assistant.gpt.message.ChatMessage;
 import io.qifan.chatgpt.assistant.gpt.message.dto.request.ChatMessageCreateRequest;
 import io.qifan.chatgpt.assistant.gpt.message.dto.request.ChatMessageQueryRequest;
@@ -7,6 +10,9 @@ import io.qifan.chatgpt.assistant.gpt.message.dto.request.ChatMessageUpdateReque
 import io.qifan.chatgpt.assistant.gpt.message.dto.response.ChatMessageCommonResponse;
 import io.qifan.chatgpt.assistant.gpt.message.mapper.ChatMessageMapper;
 import io.qifan.chatgpt.assistant.gpt.message.repository.ChatMessageRepository;
+import io.qifan.chatgpt.assistant.gpt.message.service.domainservice.SendMessageService;
+import io.qifan.chatgpt.assistant.gpt.session.ChatSession;
+import io.qifan.chatgpt.assistant.gpt.session.repository.ChatSessionRepository;
 import io.qifan.infrastructure.common.constants.ResultCode;
 import io.qifan.infrastructure.common.exception.BusinessException;
 import io.qifan.infrastructure.common.model.QueryRequest;
@@ -19,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +34,10 @@ import java.util.Optional;
 @Transactional
 @AllArgsConstructor
 public class ChatMessageService {
+    private final ChatSessionRepository chatSessionRepository;
     private final ChatMessageRepository chatMessageRepository;
     private final ChatMessageMapper chatMessageMapper;
+    private final SendMessageService sendMessageService;
 
     public ChatMessageCommonResponse findById(String id) {
         return chatMessageMapper.entity2Response(chatMessageRepository
@@ -87,5 +96,15 @@ public class ChatMessageService {
     public Boolean deleteChatMessage(List<String> ids) {
         chatMessageRepository.deleteAllById(ids);
         return true;
+    }
+
+    public void sendMessage(ChatMessageCreateRequest requestMessage, Principal principal) {
+        ChatSession chatSession = chatSessionRepository.findById(requestMessage.getSession().getId())
+                                                       .orElseThrow(() -> new BusinessException(ResultCode.NotFindError));
+        ChatMessage chatMessage = chatMessageMapper.createRequest2Entity(requestMessage);
+        ChatConfig chatConfig = sendMessageService.checkConfig(principal);
+        OpenAiService openAIService = sendMessageService.createOpenAIService(chatConfig);
+        ChatCompletionRequest chatRequest = sendMessageService.createChatRequest(chatMessage, chatConfig);
+        sendMessageService.sendMessage(openAIService, chatRequest, chatMessage, chatSession, principal);
     }
 }

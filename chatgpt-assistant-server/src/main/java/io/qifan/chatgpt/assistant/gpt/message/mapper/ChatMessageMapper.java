@@ -23,4 +23,6 @@ public interface ChatMessageMapper {
     ChatMessage updateEntityFromUpdateRequest(ChatMessageUpdateRequest request, @MappingTarget ChatMessage entity);
 
     ChatMessageCommonResponse entity2Response(ChatMessage entity);
+    com.theokanning.openai.completion.chat.ChatMessage entityToMessage(ChatMessage entity);
+
 }
