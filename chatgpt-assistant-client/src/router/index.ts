@@ -18,9 +18,7 @@ const router = createRouter({
           path: 'user/:routeName',
           component: UserSettingView,
           props: true,
-          beforeEnter: (from, to) => {
-            console.log(from)
-          },
+          redirect: '/user/profile',
           children: [
             { path: '', name: 'profile', component: ProfileView },
             { path: '', name: 'gpt', component: GPTSettingView }

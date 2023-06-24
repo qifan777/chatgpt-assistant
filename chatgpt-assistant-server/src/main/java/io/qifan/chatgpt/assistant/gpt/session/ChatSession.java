@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -30,6 +31,7 @@ public class ChatSession extends BaseEntity {
     @GenField(association = true, ignoreRequest = true)
     private List<ChatMessage> messages;
     @GenField(association = true, ignoreRequest = true)
+    @DBRef
     @CreatedBy
     private User createdBy;
     @GenField(ignoreRequest = true)
@@ -44,13 +46,21 @@ public class ChatSession extends BaseEntity {
         setValidStatus(ValidStatus.INVALID);
     }
 
-
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Statistic {
         private Integer charCount;
         private Integer tokenCount;
-        private Integer wordCount;
+
+        public Statistic plusChar(Integer charCount) {
+            this.charCount += charCount;
+            return this;
+        }
+
+        public Statistic plusToken(Integer tokenCount) {
+            this.tokenCount += tokenCount;
+            return this;
+        }
     }
 }

@@ -55,10 +55,9 @@ public class ChatSessionService {
                                                             .create(() -> {
                                                                 ChatSession request2Entity = chatSessionMapper.createRequest2Entity(
                                                                         request);
+                                                                request2Entity.setTopic("新的聊天");
                                                                 request2Entity.setStatistic(new ChatSession.Statistic(0,
-                                                                                                                      0,
                                                                                                                       0));
-                                                                request2Entity.setTopic("新的的聊天");
                                                                 return request2Entity;
                                                             })
                                                             .update(ChatSession::valid)

@@ -102,7 +102,8 @@ public class ChatConfigService {
     public ChatConfigCommonResponse getUserChatConfig() {
         return Optional.ofNullable(mongoTemplate.findOne(Query.query(Criteria.where("createdBy.id")
                                                                              .is(StpUtil.getLoginIdAsString())),
-                                                         ChatConfig.class)).map(chatConfigMapper::entity2Response)
+                                                         ChatConfig.class))
+                       .map(chatConfigMapper::entity2Response)
                        .orElse(null);
     }
 }

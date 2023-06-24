@@ -32,7 +32,8 @@ public class ChatConfigController {
     }
 
     @PostMapping("{id}/update")
-    public Boolean updateChatConfig(@RequestBody ChatConfigUpdateRequest updateRequest, @PathVariable String id) {
+    public Boolean updateChatConfig(@RequestBody @Valid ChatConfigUpdateRequest updateRequest,
+                                    @PathVariable String id) {
         chatConfigService.updateChatConfig(updateRequest, id);
         return true;
     }
@@ -61,7 +62,7 @@ public class ChatConfigController {
     }
 
     @GetMapping("user")
-    public ChatConfigCommonResponse userChatConfig() {
+    public ChatConfigCommonResponse getUserChatConfig() {
         return chatConfigService.getUserChatConfig();
     }
 }

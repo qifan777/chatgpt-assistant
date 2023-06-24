@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class ChatConfigCreateRequest extends BaseRequest {
-    private GPTModel model = GPTModel.GPT_35_TURBO;
+    private Integer model = GPTModel.GPT_35_TURBO.getCode();
     @Min(value = 0, message = "随机性不能小于0")
     @Max(value = 1, message = "随机性不能大于0")
     private Double temperature = 0.;

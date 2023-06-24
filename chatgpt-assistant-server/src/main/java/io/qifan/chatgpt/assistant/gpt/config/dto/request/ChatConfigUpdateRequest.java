@@ -1,6 +1,5 @@
 package io.qifan.chatgpt.assistant.gpt.config.dto.request;
 
-import io.qifan.chatgpt.assistant.gpt.config.ChatConfig.GPTModel;
 import io.qifan.infrastructure.common.model.BaseRequest;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -9,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class ChatConfigUpdateRequest extends BaseRequest {
-    private GPTModel model;
+    private Integer model;
     @Min(value = 0, message = "随机性不能小于0")
     @Max(value = 1, message = "随机性不能大于0")
     private Double temperature;

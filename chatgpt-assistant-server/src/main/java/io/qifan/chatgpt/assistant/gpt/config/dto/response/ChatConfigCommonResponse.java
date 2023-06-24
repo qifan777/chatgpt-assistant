@@ -1,6 +1,5 @@
 package io.qifan.chatgpt.assistant.gpt.config.dto.response;
 
-import io.qifan.chatgpt.assistant.gpt.config.ChatConfig.GPTModel;
 import io.qifan.chatgpt.assistant.user.dto.response.UserCommonResponse;
 import io.qifan.infrastructure.common.model.BaseResponse;
 import io.qifan.infrastructure.common.mongo.ValidStatus;
@@ -9,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class ChatConfigCommonResponse extends BaseResponse {
-    private GPTModel model;
+    private Integer model;
     private Double temperature;
     private Integer maxTokens;
     private Double presencePenalty;

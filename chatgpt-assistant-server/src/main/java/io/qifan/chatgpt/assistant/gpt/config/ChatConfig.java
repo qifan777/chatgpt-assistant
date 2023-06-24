@@ -1,5 +1,6 @@
 package io.qifan.chatgpt.assistant.gpt.config;
 
+
 import io.qifan.chatgpt.assistant.user.User;
 import io.qifan.infrastructure.common.constants.BaseEnum;
 import io.qifan.infrastructure.common.entity.BaseEntity;
@@ -74,5 +75,4 @@ public class ChatConfig extends BaseEntity {
             return this.name;
         }
     }
-
 }

@@ -28,5 +28,5 @@ public interface ChatSessionMapper {
     ChatSessionCommonResponse entity2Response(ChatSession entity);
 
     @Mapping(target = "session", ignore = true)
-    ChatMessageCommonResponse entity2Response(ChatMessage message);
+    ChatMessageCommonResponse entityToResponse(ChatMessage chatMessage);
 }

@@ -29,7 +29,7 @@ public interface ChatConfigMapper {
 
     @Condition
     @Named("ApiKeyCheck")
-    default boolean apiKeyUpdate(String apiKey) {
+    default boolean apiKeyCheck(String apiKey) {
         return !apiKey.equals("**********");
     }
 

@@ -1,19 +1,18 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { ChatConfig } from '../../../../typings'
 import { getUserChatConfig, saveChatConfig } from '@/api/chat-config'
 import { assertSuccess } from '@/utils/common'
-
 const models = [
-  { value: 0, label: 'gpt-3.5-turbo' },
-  { value: 1, label: 'gpt-4' }
+  { label: 'gpt-3.5-turbo', value: 0 },
+  { label: 'gpt-4', value: 1 }
 ]
-const chatConfig = ref<Partial<ChatConfig>>({
+const chatConfig = ref<ChatConfig>({
   temperature: 0,
   maxTokens: 2000,
   presencePenalty: 0,
   model: 0
-})
+} as ChatConfig)
 onMounted(() => {
   getUserChatConfig().then((res) => {
     if (res.result) {
@@ -32,37 +31,40 @@ const submit = () => {
 
 <template>
   <div class="gpt-view">
-    <div class="title">GPT设置</div>
+    <div class="title">GPT页面</div>
     <el-form label-position="top">
-      <el-form-item label="模型">
+      <el-form-item label="GPT模型">
         <el-select v-model="chatConfig.model">
           <el-option
             v-for="model in models"
             :key="model.value"
-            :label="model.label"
             :value="model.value"
-          />
+            :label="model.label"
+          ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="随机性">
+      <el-form-item label="话题随机性">
         <el-input-number
-          v-model="chatConfig.temperature"
           :max="1"
           :min="0"
-          :precision="1"
           :step="0.1"
+          v-model="chatConfig.temperature"
         ></el-input-number>
       </el-form-item>
-      <el-form-item label="单次回复token限制">
-        <el-input-number v-model="chatConfig.maxTokens" :max="4000" :min="0"></el-input-number>
+      <el-form-item label="单词回复Token">
+        <el-input-number
+          :max="4000"
+          :min="0"
+          :step="1"
+          v-model="chatConfig.maxTokens"
+        ></el-input-number>
       </el-form-item>
       <el-form-item label="话题新鲜度">
         <el-input-number
-          v-model="chatConfig.presencePenalty"
           :max="2"
           :min="-2"
-          :precision="1"
           :step="0.1"
+          v-model="chatConfig.presencePenalty"
         ></el-input-number>
       </el-form-item>
       <el-form-item label="API Key">
@@ -73,7 +75,7 @@ const submit = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .gpt-view {
   .title {
     font-size: 18px;

@@ -1,5 +1,6 @@
 package io.qifan.chatgpt.assistant.gpt.session.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionCreateRequest;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionQueryRequest;
 import io.qifan.chatgpt.assistant.gpt.session.dto.request.ChatSessionUpdateRequest;
@@ -17,6 +18,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @RequestMapping("chatSession")
+@SaCheckLogin
 public class ChatSessionController {
     private final ChatSessionService chatSessionService;
 
