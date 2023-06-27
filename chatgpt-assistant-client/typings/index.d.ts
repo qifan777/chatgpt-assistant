@@ -1,3 +1,18 @@
+export interface ChatMessage extends BaseEntity {
+  content: string
+  role: string
+  session: ChatSession
+  validStatus: 'VALID' | 'INVALID'
+}
+
+export interface ChatSession extends BaseEntity {
+  topic: string
+  statistic: Statistic
+  messages: ChatMessage[]
+  createdBy: User
+  validStatus: 'VALID' | 'INVALID'
+}
+
 export interface ChatConfig extends BaseEntity {
   model: number
   temperature: number
@@ -7,6 +22,7 @@ export interface ChatConfig extends BaseEntity {
   createdBy: User
   validStatus: 'VALID' | 'INVALID'
 }
+
 export interface User extends BaseEntity {
   avatar: string
   nickname: string
@@ -31,7 +47,7 @@ export interface MyFile {
 export interface QueryRequest<T> {
   pageNum: number
   pageSize: number
-  keyword: string
+  keyword?: string
   query?: Partial<T>
 }
 
