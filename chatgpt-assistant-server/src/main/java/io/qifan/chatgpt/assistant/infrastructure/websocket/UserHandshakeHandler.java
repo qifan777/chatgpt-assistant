@@ -13,10 +13,10 @@ import java.util.Map;
 @Slf4j
 public class UserHandshakeHandler extends DefaultHandshakeHandler {
     @Override
-    protected Principal determineUser(ServerHttpRequest request,
-                                      WebSocketHandler wsHandler,
+    protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
                                       Map<String, Object> attributes) {
-        log.info("当前连接websocket用户id：{}", StpUtil.getLoginIdAsString());
+
+        log.info("当前登录用户id：{}", StpUtil.getLoginIdAsString());
         return new UserPrincipal(StpUtil.getLoginIdAsString());
     }
 }
