@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { Position } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { Position } from '@element-plus/icons-vue'
 
+// 发送消息消息事件
 const emit = defineEmits<{
   send: [message: string]
 }>()
+// 输入框内的消息
 const message = ref('')
 const sendMessage = () => {
   emit('send', message.value)
+  // 发送完清除
   message.value = ''
 }
 </script>
@@ -15,6 +18,7 @@ const sendMessage = () => {
 <template>
   <div class="message-input">
     <div class="input-wrapper">
+      <!-- 按回车键发送，输入框高度三行 -->
       <el-input
         v-model="message"
         :autosize="false"
@@ -22,6 +26,7 @@ const sendMessage = () => {
         class="input"
         resize="none"
         type="textarea"
+        @keydown.enter="sendMessage"
       >
       </el-input>
       <div class="button-wrapper">
