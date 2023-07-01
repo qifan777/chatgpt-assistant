@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { ChatSession } from '../../../typings'
+import { ChatMessage, ChatSession } from '../../../typings'
 import { findChatSessionById, queryChatSession, saveChatSession } from '@/api/chat-session'
 import SessionItem from '@/views/home/components/SessionItem.vue'
 import { CirclePlus, Close, EditPen } from '@element-plus/icons-vue'
+import MessageRow from '@/views/home/components/MessageRow.vue'
+import MessageInput from '@/views/home/components/MessageInput.vue'
+import { Client } from '@stomp/stompjs'
+import dayjs from 'dayjs'
 
 const isEdit = ref(false)
 const activeSession = ref({ messages: [] } as ChatSession)
@@ -38,6 +42,46 @@ const handleCreateSession = async () => {
 const handleUpdateSession = () => {
   saveChatSession(activeSession.value)
   isEdit.value = false
+}
+
+const client = new Client({
+  brokerURL: 'ws://localhost:8080/handshake',
+  onConnect: () => {
+    // 连接成功后订阅ChatGPT回复地址
+    client.subscribe('/user/queue/chatMessage/receive', (message) => {
+      // 将每次回复的结果追加到回复结果中
+      responseMessage.value.content += message.body
+      console.log(message.body)
+    })
+  }
+})
+// 发起连接
+client.activate()
+// ChatGPT的回复
+const responseMessage = ref({} as ChatMessage)
+const handleSendMessage = (message: string) => {
+  // 新建一个ChatGPT回复对象，不能重复使用同一个对象。
+  responseMessage.value = {
+    role: 'assistant',
+    content: '',
+    // 因为回复的消息没有id，所以统一将创建时间+index当作key
+    createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
+  } as ChatMessage
+  // 用户的提问
+  const chatMessage = {
+    session: Object.assign({}, activeSession.value),
+    content: message,
+    role: 'user',
+    createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss')
+  } as ChatMessage
+  // 防止循环依赖，会导致json序列化失败
+  chatMessage.session.messages = []
+  client.publish({
+    destination: '/socket/chatMessage/send',
+    body: JSON.stringify(chatMessage)
+  })
+  // 将两条消息显示在页面中
+  activeSession.value.messages.push(...[chatMessage, responseMessage.value])
 }
 </script>
 <template>
@@ -101,6 +145,19 @@ const handleUpdateSession = () => {
           </div>
         </div>
         <el-divider :border-style="'solid'" />
+        <div class="message-list">
+          <!-- 过渡效果 -->
+          <transition-group name="list">
+            <message-row
+              v-for="(message, index) in activeSession.messages"
+              :key="message.createdAt + index"
+              :avatar="activeSession.createdBy.avatar"
+              :message="message"
+            ></message-row>
+          </transition-group>
+        </div>
+        <!-- 监听发送事件 -->
+        <message-input @send="handleSendMessage"></message-input>
       </div>
     </div>
   </div>
@@ -167,7 +224,6 @@ const handleUpdateSession = () => {
     /* 右侧消息记录面板*/
     .message-panel {
       width: 700px;
-      height: 800px;
 
       .header {
         padding: 20px 20px 0 20px;
@@ -192,6 +248,24 @@ const handleUpdateSession = () => {
         .rear {
           display: flex;
           align-items: center;
+        }
+      }
+
+      .message-list {
+        height: 700px;
+        padding: 15px;
+        // 消息条数太多时，溢出部分滚动
+        overflow-y: scroll;
+        // 当切换聊天会话时，消息记录也随之切换的过渡效果
+        .list-enter-active,
+        .list-leave-active {
+          transition: all 0.5s ease;
+        }
+
+        .list-enter-from,
+        .list-leave-to {
+          opacity: 0;
+          transform: translateX(30px);
         }
       }
     }

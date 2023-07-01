@@ -14,12 +14,32 @@ import { RouterView } from 'vue-router'
 body {
   margin: 0;
 }
+
+::-webkit-scrollbar {
+  --bar-width: 5px;
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  background-clip: content-box;
+  border: 1px solid transparent;
+}
+
 .slide-enter-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
+
 .slide-leave-active {
   transition: all 0.3s ease-out;
 }
+
 .slide-enter-from {
   transform: translateX(-100vw);
   opacity: 0;
