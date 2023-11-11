@@ -3,9 +3,11 @@ import { onMounted, ref } from 'vue'
 import { ChatConfig } from '../../../../typings'
 import { getUserChatConfig, saveChatConfig } from '@/api/chat-config'
 import { assertSuccess } from '@/utils/common'
+
 const models = [
   { label: 'gpt-3.5-turbo', value: 0 },
-  { label: 'gpt-4', value: 1 }
+  { label: 'gpt-4', value: 1 },
+  { label: 'gpt-4-1106-preview', value: 2 }
 ]
 const chatConfig = ref<ChatConfig>({
   temperature: 0,

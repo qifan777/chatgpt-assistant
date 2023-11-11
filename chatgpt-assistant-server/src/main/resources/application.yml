@@ -1,8 +1,8 @@
 spring:
   profiles:
-    active: dev
+    active: dev,test
 oss:
-  endpoint: https://oss-cn-beijing.aliyuncs.com
-  accessKeyId: LTAI5tQNtBignKM1TQY4x6g9
-  accessKeySecret: 73IxTwHjyW8Knts9feVTDdmM1rAstp
-  bucketName: volunteer-management
+  endpoint: ''
+  accessKeyId: ''
+  accessKeySecret: ''
+  bucketName: ''

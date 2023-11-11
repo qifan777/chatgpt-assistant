@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.theokanning.openai-gpt3-java</groupId>
             <artifactId>service</artifactId>
-            <version>0.12.0</version>
+            <version>0.16.1</version>
         </dependency>
         <dependency>
             <groupId>com.aliyun.oss</groupId>

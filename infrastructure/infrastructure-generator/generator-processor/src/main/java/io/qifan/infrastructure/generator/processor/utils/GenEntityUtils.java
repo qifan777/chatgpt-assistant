@@ -38,7 +38,7 @@ public class GenEntityUtils {
     }
     public GenFeign getFeign() {
         return genEntity.genFeign();
-    };
+    }
 
     public String getSourcePath() {
         return genEntity.sourcePath();

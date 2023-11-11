@@ -43,7 +43,8 @@ public class ChatConfig extends BaseEntity {
 
     public enum GPTModel implements BaseEnum {
         GPT_35_TURBO(0, "gpt-3.5-turbo"),
-        GPT_4(1, "gpt-4");
+        GPT_4(1, "gpt-4"),
+        GPT_4_TURBO(2, "gpt-4-1106-preview");
 
         private final Integer code;
         private final String name;
