@@ -8,9 +8,16 @@ import MessageRow from '@/views/home/components/MessageRow.vue'
 import MessageInput from '@/views/home/components/MessageInput.vue'
 import { Client } from '@stomp/stompjs'
 import dayjs from 'dayjs'
+import { useUserStore } from '@/stores/user'
+import { storeToRefs } from 'pinia'
 
 const isEdit = ref(false)
-const activeSession = ref({ messages: [] } as ChatSession)
+const activeSession = ref<Pick<ChatSession, 'id' | 'statistic' | 'messages' | 'topic'>>({
+  id: '',
+  topic: '',
+  statistic: { tokenCount: 0, wordCount: 0, chatCount: 0 },
+  messages: []
+})
 const sessionList = ref([] as ChatSession[])
 onMounted(() => {
   // 查询自己的聊天会话
@@ -46,6 +53,9 @@ const handleUpdateSession = () => {
 
 const client = new Client({
   brokerURL: 'ws://localhost:8080/handshake',
+  connectHeaders: {
+    token: localStorage.getItem('token') || ''
+  },
   onConnect: () => {
     // 连接成功后订阅ChatGPT回复地址
     client.subscribe('/user/queue/chatMessage/receive', (message) => {
@@ -83,6 +93,7 @@ const handleSendMessage = (message: string) => {
   // 将两条消息显示在页面中
   activeSession.value.messages.push(...[chatMessage, responseMessage.value])
 }
+const { userInfo } = storeToRefs(useUserStore())
 </script>
 <template>
   <!-- 最外层页面于窗口同宽，使聊天面板居中 -->
@@ -151,7 +162,7 @@ const handleSendMessage = (message: string) => {
             <message-row
               v-for="(message, index) in activeSession.messages"
               :key="message.createdAt + index"
-              :avatar="activeSession.createdBy.avatar"
+              :avatar="userInfo.avatar"
               :message="message"
             ></message-row>
           </transition-group>
